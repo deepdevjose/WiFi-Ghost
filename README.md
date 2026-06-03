@@ -10,18 +10,37 @@ The current project scope is intentionally constrained to 2.4 GHz Wi-Fi on the H
 - A system architecture draft for the transmitter, receiver, dashboard, and visualization pipeline
 - Theory notes for OFDM, multipath, and CSI interpretation
 - A roadmap for experiments, validation, and future extensions
+- Simulation notebooks for validating the math before touching firmware
 
 ## Start here
 
-- [Master research dossier](docs/WiFiGhost_Research.md)
-- [Research synthesis](docs/research.md)
-- [Canonical payload schema](docs/canonical-payload.schema.json)
-- [Experimental protocol](docs/experimental-protocol.md)
-- [CSI theory](docs/csi-theory.md)
-- [Wi-Fi propagation](docs/wifi-propagation.md)
-- [Environmental compensation](docs/environmental-compensation.md)
-- [System architecture](docs/architecture.md)
+- [Requirements](docs/requirements.md)
+- [Master research dossier](docs/research/WiFiGhost_Research.md)
+- [Research synthesis](docs/research/research-synthesis.md)
+- [Canonical payload schema](docs/architecture/canonical-payload.schema.json)
+- [Experimental protocol](docs/experiments/experimental-protocol.md)
+- [CSI theory](docs/research/csi-theory.md)
+- [Wi-Fi propagation](docs/research/wifi-propagation.md)
+- [Environmental compensation](docs/research/environmental-compensation.md)
+- [System architecture](docs/architecture/system-overview.md)
+- [Localization risk](docs/localization.md)
+- [Notebook roadmap](notebooks/README.md)
 - [Roadmap](docs/roadmap.md)
+
+## Repository layout
+
+```text
+WiFi-Ghost/
+├── docs/
+│   ├── research/
+│   ├── architecture/
+│   └── experiments/
+├── notebooks/
+├── firmware/
+├── web/
+├── tools/
+└── assets/
+```
 
 ## Design principle
 

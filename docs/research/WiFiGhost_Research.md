@@ -182,7 +182,7 @@ The project should standardize one message format for capture, processing, and v
 }
 ```
 
-See the machine-readable schema in [canonical-payload.schema.json](canonical-payload.schema.json).
+See the machine-readable schema in [canonical-payload.schema.json](../architecture/canonical-payload.schema.json).
 
 ## 12. Conclusion
 

@@ -82,7 +82,7 @@ This project should standardize on one transport object for both logging and vis
 }
 ```
 
-The machine-readable schema lives in [canonical-payload.schema.json](canonical-payload.schema.json).
+The machine-readable schema lives in [../architecture/canonical-payload.schema.json](../architecture/canonical-payload.schema.json).
 
 ## Key conclusion
 
