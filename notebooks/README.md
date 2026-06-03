@@ -2,7 +2,7 @@
 
 This folder contains simulation and analysis notebooks for WiFiGhost.
 
-## Files
+## Final Sequence
 
 - [00_project_setup.ipynb](00_project_setup.ipynb)  
   Defines shared imports, constants, room dimensions, transmitter position, receiver position, and sample timing.

@@ -8,13 +8,12 @@ The scientific challenge is that CSI is informative but unstable: it contains ge
 
 ## 1. System premise
 
-The current system should be understood as five coupled subsystems:
+The current system should be understood as three coupled hardware nodes plus the browser UI:
 
-1. A Heltec ESP32-S3 transmitter emits Wi-Fi packets.
-2. A Heltec ESP32-S3 receiver captures per-packet CSI and related metadata.
-3. A DHT22 reports ambient temperature and relative humidity near the radio hardware.
-4. An ESP32-side service or gateway forwards stream data to a higher-level application.
-5. A React + Three.js front end displays the evolving channel state.
+1. Heltec A emits controlled 2.4 GHz Wi-Fi packets.
+2. ESP32 WROOM-32 B receives CSI, reads the DHT22 on the same node, and runs the first-stage motion algorithm.
+3. ESP32 WROOM-32 C hosts the web server, React dashboard, and WebSocket stream.
+4. A React + Three.js front end displays the evolving channel state.
 
 The important correction is that this platform is 2.4 GHz only. Any references to 5 GHz or 6 GHz should be treated as future extensions that require different radio hardware.
 
@@ -169,7 +168,7 @@ The project should standardize one message format for capture, processing, and v
 ```json
 {
 	"timestamp_ms": 0,
-	"device_id": "heltec-rx-01",
+	"device_id": "esp32-b-rx-01",
 	"sequence_number": 0,
 	"rssi": -50,
 	"channel": 6,

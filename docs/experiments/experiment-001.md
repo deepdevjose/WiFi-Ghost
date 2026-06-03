@@ -6,9 +6,10 @@ Measure CSI stability when the room is intentionally still.
 
 ## Setup
 
-- One Heltec ESP32-S3 transmitter.
-- One Heltec ESP32-S3 receiver.
-- DHT22 near the receiver.
+- Heltec A as the Wi-Fi CSI transmitter.
+- ESP32 WROOM-32 B as the Wi-Fi CSI receiver, DHT22 reader, and motion algorithm node.
+- ESP32 WROOM-32 C as the dashboard server.
+- DHT22 connected to ESP32 B, preferably on `GPIO4`.
 - Fixed antenna orientation.
 - Fixed 2.4 GHz channel.
 

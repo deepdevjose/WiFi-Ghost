@@ -6,36 +6,44 @@ WiFiGhost should be organized as a measurement pipeline with explicit boundaries
 
 ```mermaid
 flowchart LR
-	TX[Heltec ESP32-S3 TX] --> AIR[2.4 GHz Wi-Fi Channel]
-	AIR --> RX[Heltec ESP32-S3 RX]
+	TX[Heltec A Wi-Fi CSI Transmitter] --> AIR[2.4 GHz Wi-Fi Channel]
+	AIR --> RX[ESP32 B CSI Receiver + Motion Algorithm]
 	DHT[DHT22 Temp/Humidity] --> RX
-	RX --> EDGE[ESP32 Capture / Gateway Layer]
-	EDGE --> BUS[Stream Transport]
-	BUS --> APP[Research Backend / Feature Pipeline]
-	APP --> UI[React Dashboard]
+	RX --> DASH[ESP32 C Web Server]
+	DASH --> BUS[WebSocket Stream]
+	BUS --> UI[React Dashboard]
 	UI --> VIZ[Three.js 3D Visualization]
 ```
 
 ## Responsibilities
 
-### Transmitter
+### Heltec A: Transmitter
 
 - Emits controlled Wi-Fi traffic
 - Keeps packet timing as stable as possible
 - Provides a repeatable excitation source for the channel
 
-### Receiver
+### ESP32 B: Receiver and Motion Node
 
 - Captures CSI and packet metadata
-- Reads ambient temperature and humidity
+- Reads ambient temperature and humidity from a DHT22 on the same node
+- Runs the first-stage motion algorithm
 - Applies first-stage filtering and serialization
 
-### Backend
+Recommended DHT22 wiring on a regular ESP32 WROOM-32:
 
-- Stores raw observations
-- Computes normalized features
-- Runs drift compensation and analytics
-- Serves data to the UI in real time or near real time
+- `VCC` -> `3V3`
+- `GND` -> `GND`
+- `DATA` -> `GPIO4`
+
+`GPIO5` is acceptable if `GPIO4` is unavailable. Avoid `GPIO0`, `GPIO2`, `GPIO12`, `GPIO15`, `GPIO1`, `GPIO3`, and `GPIO6` through `GPIO11`.
+
+### ESP32 C: Dashboard Server
+
+- Hosts the web server
+- Serves the React dashboard
+- Publishes capture data over WebSocket
+- Keeps dashboard duties separate from CSI capture
 
 ### Frontend
 
@@ -59,6 +67,8 @@ Use a payload that separates raw and derived data:
 - `humidity_percent`
 - `normalized_features`
 - `anomaly_score`
+- `motion_score`
+- `state`
 
 The canonical payload contract is documented in [canonical-payload.schema.json](canonical-payload.schema.json).
 

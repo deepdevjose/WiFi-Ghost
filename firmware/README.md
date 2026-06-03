@@ -4,7 +4,7 @@ The firmware layer should behave like a measurement instrument. Keep the embedde
 
 ## Nodes
 
-### heltec-tx
+### heltec-a
 
 The transmitter emits controlled 2.4 GHz Wi-Fi traffic so the receiver has a repeatable channel excitation source.
 
@@ -14,25 +14,35 @@ Responsibilities:
 - document Wi-Fi channel and rate assumptions,
 - avoid unrelated behavior that changes timing.
 
-### heltec-rx
+### esp32-b
 
-The receiver captures CSI, RSSI, packet metadata, and environmental telemetry.
+The receiver captures CSI, RSSI, packet metadata, environmental telemetry, and first-stage motion scores.
 
 Responsibilities:
 
 - enable CSI capture,
 - attach timestamps and sequence numbers,
-- read temperature and humidity near the receiver,
+- read temperature and humidity from the DHT22 on the same receiver node,
+- run the first-stage motion algorithm against the current baseline,
 - serialize observations using the canonical payload schema.
 
-### esp32-dashboard
+Recommended DHT22 wiring on a regular ESP32 WROOM-32:
 
-This folder is reserved for an optional embedded display or gateway role.
+- `VCC` -> `3V3`
+- `GND` -> `GND`
+- `DATA` -> `GPIO4`
+
+`GPIO5` is acceptable if `GPIO4` is unavailable. Avoid `GPIO0`, `GPIO2`, `GPIO12`, `GPIO15`, `GPIO1`, `GPIO3`, and `GPIO6` through `GPIO11`.
+
+### esp32-c
+
+This node is dedicated to the web dashboard role.
 
 Responsibilities:
 
-- forward capture data to the local dashboard,
-- display minimal device state if needed,
+- host the web server,
+- serve the React dashboard,
+- publish capture data over WebSocket,
 - avoid owning the research model or localization logic.
 
 ## Contract

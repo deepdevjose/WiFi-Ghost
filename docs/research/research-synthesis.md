@@ -69,7 +69,7 @@ This project should standardize on one transport object for both logging and vis
 ```json
 {
 	"timestamp_ms": 0,
-	"device_id": "heltec-rx-01",
+	"device_id": "esp32-b-rx-01",
 	"sequence_number": 0,
 	"rssi": -50,
 	"channel": 6,

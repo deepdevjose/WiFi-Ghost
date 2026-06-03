@@ -6,7 +6,13 @@ This protocol defines how to run repeatable WiFiGhost experiments so that CSI ca
 
 ## Scope
 
-The protocol is intended for the current 2.4 GHz ESP32-S3 setup with a Heltec transmitter, a Heltec receiver, and a DHT22 sensor near the capture device.
+The protocol is intended for the current 2.4 GHz ESP32-class setup:
+
+- Heltec A as the Wi-Fi CSI transmitter.
+- ESP32 WROOM-32 B as the Wi-Fi CSI receiver, DHT22 reader, and motion algorithm node.
+- ESP32 WROOM-32 C as the web server, React dashboard host, and WebSocket endpoint.
+
+The DHT22 should be connected to the receiver node, not to a separate DHT22-only node.
 
 ## Required metadata
 
@@ -24,6 +30,7 @@ Record the following for every session:
 - Furniture or obstacle changes
 - Ambient temperature
 - Ambient humidity
+- DHT22 data pin
 
 ## Session phases
 

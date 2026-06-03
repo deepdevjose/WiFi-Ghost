@@ -6,7 +6,7 @@ This repository is not trying to turn CSI into a magic camera. CSI is a noisy, h
 
 ## Current Scope
 
-The current hardware target is the Heltec ESP32-S3 platform operating on 2.4 GHz Wi-Fi.
+The current hardware target is an ESP32-class 2.4 GHz Wi-Fi setup with one Heltec transmitter node, one ESP32 WROOM-32 receiver node, and one ESP32 WROOM-32 dashboard node.
 
 In scope:
 
@@ -86,11 +86,21 @@ Available scripts:
 
 Firmware should behave like a measurement instrument. Embedded nodes should focus on capture, timing, and serialization while analysis remains in notebooks and the dashboard until the sensing pipeline is validated.
 
-Planned node roles:
+Recommended node roles:
 
-- `heltec-tx`: emits controlled 2.4 GHz Wi-Fi traffic.
-- `heltec-rx`: captures CSI, RSSI, packet metadata, and environmental telemetry.
-- `esp32-dashboard`: optional gateway or embedded display role.
+- `heltec-a`: Wi-Fi CSI transmitter. Emits controlled 2.4 GHz Wi-Fi packets.
+- `esp32-b`: Wi-Fi CSI receiver, DHT22 temperature/humidity reader, and first-stage motion algorithm node.
+- `esp32-c`: dashboard server. Hosts the web server, React dashboard, and WebSocket stream.
+
+CSI and DHT22 readings should be captured on the same receiver node so environmental drift metadata is tied to the channel observation.
+
+Recommended DHT22 wiring for `esp32-b`:
+
+- `VCC` -> `3V3`
+- `GND` -> `GND`
+- `DATA` -> `GPIO4`
+
+`GPIO5` is acceptable if `GPIO4` is unavailable. Avoid `GPIO0`, `GPIO2`, `GPIO12`, `GPIO15`, `GPIO1`, `GPIO3`, and `GPIO6` through `GPIO11` for DHT22 data.
 
 The data contract is defined by the [canonical payload schema](docs/architecture/canonical-payload.schema.json).
 
