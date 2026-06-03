@@ -7,6 +7,7 @@ WiFiGhost documentation is organized by project layer.
 - [Requirements](requirements.md)
 - [Localization](localization.md)
 - [Roadmap](roadmap.md)
+- [References](references.md)
 
 ## Research
 
