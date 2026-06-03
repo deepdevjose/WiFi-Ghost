@@ -15,6 +15,8 @@ The current project scope is intentionally constrained to 2.4 GHz Wi-Fi on the H
 
 - [Master research dossier](docs/WiFiGhost_Research.md)
 - [Research synthesis](docs/research.md)
+- [Canonical payload schema](docs/canonical-payload.schema.json)
+- [Experimental protocol](docs/experimental-protocol.md)
 - [CSI theory](docs/csi-theory.md)
 - [Wi-Fi propagation](docs/wifi-propagation.md)
 - [Environmental compensation](docs/environmental-compensation.md)

@@ -60,3 +60,9 @@ For WiFiGhost, a useful mental model is:
 Propagational theory tells you what CSI can plausibly see and what it cannot. If a phenomenon does not meaningfully perturb the channel at 2.4 GHz, CSI will not recover it reliably.
 
 That makes propagation analysis the filter that keeps the project scientifically honest.
+
+## References
+
+- [Wireless Channel Fundamentals](https://github.com/espressif/esp-csi/blob/master/docs/en/Wireless-Channel-Fundamentals.md)
+- [Multipath propagation](https://en.wikipedia.org/wiki/Multipath_propagation)
+- [Orthogonal frequency-division multiplexing](https://en.wikipedia.org/wiki/Orthogonal_frequency-division_multiplexing)

@@ -5,6 +5,7 @@
 - Lock the hardware description to 2.4 GHz ESP32-S3 operation
 - Remove any remaining assumptions about 5 GHz or 6 GHz support on the current boards
 - Define the canonical data schema for CSI and environmental telemetry
+- Publish the experiment protocol and capture metadata template
 
 ## Phase 2: Build a reproducible capture pipeline
 

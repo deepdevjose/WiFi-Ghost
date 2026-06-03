@@ -62,6 +62,38 @@ The React + Three.js layer should not only render a decorative 3D dashboard. It 
 - A feature extraction notebook or script
 - A metrics report with accuracy, latency, and stability results
 
+## Canonical payload contract
+
+This project should standardize on one transport object for both logging and visualization.
+
+```json
+{
+	"timestamp_ms": 0,
+	"device_id": "heltec-rx-01",
+	"sequence_number": 0,
+	"rssi": -50,
+	"channel": 6,
+	"csi_amplitude": [],
+	"csi_phase": [],
+	"temperature_c": 25.4,
+	"humidity_percent": 58.1,
+	"motion_score": 0.0,
+	"state": "static"
+}
+```
+
+The machine-readable schema lives in [canonical-payload.schema.json](canonical-payload.schema.json).
+
 ## Key conclusion
 
 The strongest version of this project is not "Wi-Fi radar" in the loose sense. It is a calibrated wireless sensing pipeline that combines channel physics, embedded measurement, and interactive visualization into a system that can be studied, tested, and improved like any other serious estimation stack.
+
+## References
+
+- [ESP-IDF Wi-Fi guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/wifi.html)
+- [ESP-IDF Wi-Fi CSI section](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/wifi.html#wi-fi-channel-state-information)
+- [Espressif esp-csi repository](https://github.com/espressif/esp-csi)
+- [esp-csi OFDM introduction](https://github.com/espressif/esp-csi/blob/master/docs/en/OFDM-introduction.md)
+- [Wireless Channel Fundamentals](https://github.com/espressif/esp-csi/blob/master/docs/en/Wireless-Channel-Fundamentals.md)
+- [Orthogonal frequency-division multiplexing](https://en.wikipedia.org/wiki/Orthogonal_frequency-division_multiplexing)
+- [Multipath propagation](https://en.wikipedia.org/wiki/Multipath_propagation)

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/wifighost/canonical-payload.schema.json",
+  "title": "WiFiGhost Canonical Payload",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "timestamp_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "device_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sequence_number": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rssi": {
+      "type": "integer"
+    },
+    "channel": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 14
+    },
+    "csi_amplitude": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "csi_phase": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "temperature_c": {
+      "type": "number"
+    },
+    "humidity_percent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "motion_score": {
+      "type": "number",
+      "minimum": 0
+    },
+    "state": {
+      "type": "string",
+      "enum": ["static", "transition", "motion", "unknown"]
+    }
+  },
+  "required": [
+    "timestamp_ms",
+    "device_id",
+    "sequence_number",
+    "rssi",
+    "channel",
+    "csi_amplitude",
+    "csi_phase",
+    "temperature_c",
+    "humidity_percent",
+    "motion_score",
+    "state"
+  ]
+}

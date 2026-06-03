@@ -92,3 +92,10 @@ That makes WiFiGhost an applied problem in:
 - signal processing,
 - embedded systems,
 - and sensing analytics.
+
+## References
+
+- [ESP-IDF Wi-Fi CSI guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/wifi.html#wi-fi-channel-state-information)
+- [Espressif esp-csi repository](https://github.com/espressif/esp-csi)
+- [esp-csi OFDM introduction](https://github.com/espressif/esp-csi/blob/master/docs/en/OFDM-introduction.md)
+- [Orthogonal frequency-division multiplexing](https://en.wikipedia.org/wiki/Orthogonal_frequency-division_multiplexing)

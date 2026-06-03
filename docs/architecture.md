@@ -60,6 +60,8 @@ Use a payload that separates raw and derived data:
 - `normalized_features`
 - `anomaly_score`
 
+The canonical payload contract is documented in [canonical-payload.schema.json](canonical-payload.schema.json).
+
 ## Research engineering principle
 
 Every layer should be testable independently.
@@ -68,3 +70,10 @@ Every layer should be testable independently.
 - Compensation can be validated on quiet-room baselines.
 - Visualization can be validated on synthetic and recorded data.
 - The end-to-end pipeline can then be evaluated as a system, not as a UI prototype.
+
+## References
+
+- [ESP-IDF Wi-Fi CSI guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/wifi.html#wi-fi-channel-state-information)
+- [Espressif esp-csi repository](https://github.com/espressif/esp-csi)
+- [esp-csi esp-radar examples](https://github.com/espressif/esp-csi/tree/master/examples/esp-radar)
+- [Wireless Channel Fundamentals](https://github.com/espressif/esp-csi/blob/master/docs/en/Wireless-Channel-Fundamentals.md)

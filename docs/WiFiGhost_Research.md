@@ -162,6 +162,38 @@ The strongest next step is to build a reproducible pipeline for one of three goa
 
 That path is more defensible than jumping directly to full 3D localization. It is also much more realistic for an ESP32-S3-based platform.
 
-## 11. Conclusion
+## 11. Canonical payload contract
+
+The project should standardize one message format for capture, processing, and visualization.
+
+```json
+{
+	"timestamp_ms": 0,
+	"device_id": "heltec-rx-01",
+	"sequence_number": 0,
+	"rssi": -50,
+	"channel": 6,
+	"csi_amplitude": [],
+	"csi_phase": [],
+	"temperature_c": 25.4,
+	"humidity_percent": 58.1,
+	"motion_score": 0.0,
+	"state": "static"
+}
+```
+
+See the machine-readable schema in [canonical-payload.schema.json](canonical-payload.schema.json).
+
+## 12. Conclusion
 
 WiFiGhost can become a serious applied research project if it is framed as a channel-estimation and compensation system rather than a generic radar idea. The combination of CSI, environmental telemetry, and a disciplined dashboard can produce a useful experimental platform for indoor sensing research, but only if the work is grounded in real physical limits and reproducible methodology.
+
+## References
+
+- [ESP-IDF Wi-Fi CSI guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/wifi.html#wi-fi-channel-state-information)
+- [Espressif esp-csi repository](https://github.com/espressif/esp-csi)
+- [esp-csi esp-radar examples](https://github.com/espressif/esp-csi/tree/master/examples/esp-radar)
+- [esp-csi OFDM introduction](https://github.com/espressif/esp-csi/blob/master/docs/en/OFDM-introduction.md)
+- [Wireless Channel Fundamentals](https://github.com/espressif/esp-csi/blob/master/docs/en/Wireless-Channel-Fundamentals.md)
+- [Orthogonal frequency-division multiplexing](https://en.wikipedia.org/wiki/Orthogonal_frequency-division_multiplexing)
+- [Multipath propagation](https://en.wikipedia.org/wiki/Multipath_propagation)

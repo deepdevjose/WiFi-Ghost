@@ -64,3 +64,9 @@ Calibrate once per deployment session or room state, then reuse the calibration 
 ## Research caution
 
 Temperature and humidity are explanatory variables, not universal causes. They may correlate with drift in one deployment and be weak in another. The model should therefore be empirical and validated, not assumed.
+
+## References
+
+- [ESP-IDF Wi-Fi CSI guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/wifi.html#wi-fi-channel-state-information)
+- [Espressif esp-csi repository](https://github.com/espressif/esp-csi)
+- [Wireless Channel Fundamentals](https://github.com/espressif/esp-csi/blob/master/docs/en/Wireless-Channel-Fundamentals.md)
