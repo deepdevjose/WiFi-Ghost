@@ -139,6 +139,14 @@ http://YOUR_LAPTOP_IP:8080/api/latest
 
 The laptop receiver currently enriches ESP32 B packets with a provisional RSSI-baseline motion detector. It adds `motion_score`, `motion`, `state`, `zone`, `rssi_baseline`, `rssi_delta`, `rssi_jitter`, and `baseline_samples`. This is not CSI yet; it is a real-data bridge so the dashboard can visualize obstacle perturbation before CSI capture starts.
 
+To recalibrate the RSSI baseline, keep the room still and open:
+
+```text
+http://YOUR_LAPTOP_IP:8080/api/calibrate
+```
+
+Then wait for at least `6` ESP32 B samples before testing movement. With the current `2 s` ESP32 B interval, that is about `12-15 s`. The tuned detector should react to RSSI changes of roughly `3 dB` or more.
+
 ### Flash order
 
 1. Open `heltec-tx/heltec-tx.ino`.

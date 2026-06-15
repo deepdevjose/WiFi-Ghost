@@ -18,11 +18,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Lock
 
-RSSI_WINDOW_SIZE = 18
-BASELINE_ALPHA = 0.08
-MIN_BASELINE_SAMPLES = 8
-MOTION_ON_THRESHOLD = 0.42
-MOTION_OFF_THRESHOLD = 0.24
+RSSI_WINDOW_SIZE = 12
+BASELINE_ALPHA = 0.035
+MIN_BASELINE_SAMPLES = 6
+MOTION_ON_THRESHOLD = 0.26
+MOTION_OFF_THRESHOLD = 0.14
 
 
 STATE = {
@@ -71,24 +71,21 @@ def enrich_motion(payload: dict) -> dict:
 
     if baseline is None:
         baseline = rssi
-    else:
-        baseline = (1.0 - BASELINE_ALPHA) * baseline + BASELINE_ALPHA * rssi
 
-    motion_state["baseline_rssi"] = baseline
+    delta = rssi - baseline
 
     if len(samples) < MIN_BASELINE_SAMPLES:
         score = 0.0
         jitter = 0.0
-        delta = rssi - baseline
         motion = False
         state = "calibrating"
         zone = "unknown"
+        baseline = (1.0 - BASELINE_ALPHA) * baseline + BASELINE_ALPHA * rssi
     else:
         jitter = statistics.pstdev(samples) if len(samples) > 1 else 0.0
-        delta = rssi - baseline
-        delta_score = clamp(abs(delta) / 12.0)
-        jitter_score = clamp(jitter / 6.0)
-        score = clamp(delta_score * 0.62 + jitter_score * 0.38)
+        delta_score = clamp(abs(delta) / 5.0)
+        jitter_score = clamp(jitter / 2.4)
+        score = clamp(delta_score * 0.72 + jitter_score * 0.28)
 
         if motion_state["motion"]:
             motion = score >= MOTION_OFF_THRESHOLD
@@ -99,6 +96,11 @@ def enrich_motion(payload: dict) -> dict:
         motion_state["score"] = score
         state = "motion" if motion else "static"
         zone = estimate_zone(delta, jitter) if motion else "unknown"
+
+        if not motion:
+            baseline = (1.0 - BASELINE_ALPHA) * baseline + BASELINE_ALPHA * rssi
+
+    motion_state["baseline_rssi"] = baseline
 
     return {
         **payload,
@@ -162,6 +164,22 @@ class TelemetryHandler(BaseHTTPRequestHandler):
             self.send_json(200, body)
             return
 
+        if self.path == "/api/calibrate":
+            with STATE_LOCK:
+                STATE["motion_by_device"].clear()
+                for device in STATE["latest_by_device"].values():
+                    device["motion_score"] = 0.0
+                    device["motion"] = False
+                    device["state"] = "calibrating"
+                    device["zone"] = "unknown"
+                if STATE["latest_environment"]:
+                    STATE["latest_environment"]["motion_score"] = 0.0
+                    STATE["latest_environment"]["motion"] = False
+                    STATE["latest_environment"]["state"] = "calibrating"
+                    STATE["latest_environment"]["zone"] = "unknown"
+            self.send_json(200, {"ok": True, "message": "motion baseline reset"})
+            return
+
         self.send_json(
             200,
             {
@@ -170,6 +188,7 @@ class TelemetryHandler(BaseHTTPRequestHandler):
                 "latest": "/api/latest",
                 "devices": "/api/devices",
                 "health": "/api/health",
+                "calibrate": "/api/calibrate",
             },
         )
 
